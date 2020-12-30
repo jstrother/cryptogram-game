@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app dark class="app">
     <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>
@@ -27,14 +27,18 @@ export default {
   },
   head() {
     const title = this.error.statusCode === 404 ? this.pageNotFound : this.otherError;
-    return {
-      title,
-    };
+    return { title };
   },
 };
 </script>
 
 <style scoped>
+.app {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
 h1 {
   font-size: 20px;
 }
