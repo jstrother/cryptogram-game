@@ -16,4 +16,4 @@ function encryption(string) {
   return encryptedArray;
 }
 
-module.exports = encryption;
+module.exports = { encryption };

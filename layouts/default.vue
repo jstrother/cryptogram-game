@@ -1,14 +1,16 @@
 <template>
   <v-app dark>
-    <v-app-bar fixed app class="header">
-      <h2>Cryptograms</h2>
+    <v-app-bar fixed app class="d-flex justify-center">
+      <nuxt-link to="/" class="header-link">
+        <h2>Cryptograms</h2>
+      </nuxt-link>
     </v-app-bar>
     <v-main>
       <v-container>
         <nuxt />
       </v-container>
     </v-main>
-    <v-footer app class="footer">
+    <v-footer app>
       <v-spacer></v-spacer>
       <span>A Jim Strother Creation</span>
       <v-spacer></v-spacer>
@@ -54,13 +56,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
+.header-link {
+  color: white;
+  text-decoration: none;
 }
-
-a {
+.footer-link {
   color: white;
   margin: $spacing-gap;
   text-decoration: none;
