@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <v-input v-model.trim="answerLetter" class="letter-input"></v-input>
-  </div>
+  <v-text-field v-model="answerLetter" v-uppercase maxlength="1"></v-text-field>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      answerLetter: '',
+    };
+  },
+};
 </script>
-
-<style lang="scss" scoped>
-.letter-input {
-  width: 1.5em;
-}
-</style>
