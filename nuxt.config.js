@@ -90,13 +90,4 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
-  render: {
-    bundleRenderer: {
-      directives: {
-        uppercase: (value) => {
-          return value.toUpperCase();
-        },
-      },
-    },
-  },
 };
