@@ -1,5 +1,10 @@
 <template>
-  <v-text-field v-model="answerLetter" maxlength="1"></v-text-field>
+  <v-text-field
+    v-model="answerLetter"
+    class="answerLetter"
+    maxlength="1"
+    @keyup="uppercase"
+  ></v-text-field>
 </template>
 
 <script>
@@ -9,10 +14,16 @@ export default {
       answerLetter: '',
     };
   },
-  watch: {
-    answerLetter: () => {
-      return this.answerLetter.toUpperCase();
+  methods: {
+    uppercase() {
+      this.answerLetter = this.answerLetter.toUpperCase();
     },
   },
 };
 </script>
+
+<style lang="scss">
+.answerLetter input {
+  text-transform: uppercase;
+}
+</style>
