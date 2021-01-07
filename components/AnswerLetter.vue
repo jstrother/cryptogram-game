@@ -25,5 +25,6 @@ export default {
 <style lang="scss">
 .answerLetter input {
   text-transform: uppercase;
+  text-align: center;
 }
 </style>

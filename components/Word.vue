@@ -1,6 +1,6 @@
 <template>
   <div class="word d-flex">
-    <LetterPairing v-for="(char, index) in word" :key="index" :char="char" />
+    <LetterPairing v-for="(char, index) in word" :key="index" :char="char" :index="index" />
   </div>
 </template>
 
@@ -17,7 +17,6 @@ export default {
 
 <style lang="scss" scoped>
 .word {
-  border: 1px solid white;
-  margin: $spacing-gap;
+  margin: $spacing-gap * 4;
 }
 </style>

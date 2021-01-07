@@ -1,5 +1,7 @@
 <template>
-  <div>{{ letter }}</div>
+  <div>
+    <p>{{ letter }}</p>
+  </div>
 </template>
 
 <script>
@@ -12,3 +14,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+p {
+  text-align: center;
+}
+</style>

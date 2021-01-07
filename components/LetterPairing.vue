@@ -13,6 +13,10 @@ export default {
       type: String,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
 };
 </script>
@@ -20,7 +24,6 @@ export default {
 <style lang="scss" scoped>
 .letter-input {
   width: 1.5em;
-  // border: 1px solid white;
   margin: $spacing-gap;
 }
 </style>
