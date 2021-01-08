@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { encryption } from '@/functions/encryption';
 
 export default {
@@ -21,8 +22,9 @@ export default {
     return { randomQuote, encryptedQuote };
   },
   methods: {
+    ...mapActions(['saveQuoteInfo']),
     saveQuote() {
-      this.$store.dispatch('saveQuoteInfo', {
+      this.saveQuoteInfo({
         quote: this.randomQuote.quote,
         movie: this.randomQuote.movie,
         encrypted: this.encryptedQuote,

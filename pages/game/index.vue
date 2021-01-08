@@ -1,6 +1,11 @@
 <template>
   <div class="d-flex flex-wrap justify-center mt-16 pt-16">
-    <Word v-for="(word, index) in encryptedQuote.split(' ')" :key="index" :word="word" />
+    <LetterPairing
+      v-for="(char, index) in encryptedQuote.split('')"
+      :key="index"
+      :char="char"
+      :index="index"
+    />
   </div>
 </template>
 

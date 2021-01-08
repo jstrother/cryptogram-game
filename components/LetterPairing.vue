@@ -1,6 +1,6 @@
 <template>
   <div class="letter-input">
-    <AnswerLetter v-if="char.match(/[A-Z]/)" />
+    <AnswerLetter v-if="char.match(/[A-Z]/)" :index="index" />
     <SpotHolder v-else />
     <EncryptedLetter :letter="char" />
   </div>
