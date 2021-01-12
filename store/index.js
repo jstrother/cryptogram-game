@@ -2,7 +2,7 @@ export const state = () => ({
   selectedQuote: '',
   selectedMovie: '',
   encryptedQuote: '',
-  similarLetterIndexes: {},
+  similarEncryptedLetterIndexes: {},
   userAnswer: [],
 });
 
@@ -16,52 +16,46 @@ export const mutations = {
   setEncryptedQuote(state, payload) {
     state.encryptedQuote = payload;
   },
-  setSimilarLetterIndexes(state) {
-    const letterIndexes = state.similarLetterIndexes;
+  setSimilarEncryptedLetterIndexes(state) {
     const quote = state.encryptedQuote;
-    const trash = [];
 
-    for (const char of quote.split('')) {
-      if (char.match(/[A-Z]/)) {
-        const index = quote.indexOf(char);
-
-        letterIndexes[char]
-          ? letterIndexes[char].push(quote.indexOf(char))
-          : (letterIndexes[char] = [quote.indexOf(char)]);
-
-        trash.push(quote.slice(index, index + 1));
-      }
+    for (const [index, char] of quote.split('').entries()) {
+      state.similarEncryptedLetterIndexes[char]
+        ? state.similarEncryptedLetterIndexes[char].push(index)
+        : (state.similarEncryptedLetterIndexes[char] = [index]);
     }
-
-    console.log('quote:', quote);
-    console.log('similarLetterIndexes:', letterIndexes);
   },
   setUserAnswer(state, payload) {
-    const indexes = state.similarLetterIndexes;
-    const userAnswer = state.userAnswer;
-    const encryptedQuote = state.encryptedQuote;
-    console.log('userAnswer payload:', payload);
-    if (payload.match(/[A-Z]/)) {
-      for (const char of encryptedQuote) {
-        if (char === payload) {
-          indexes[char].forEach((index) => {
-            userAnswer[index] = payload;
-            console.log('userAnswer:', userAnswer);
-          });
-        }
+    const indexes = state.similarEncryptedLetterIndexes;
+    const encryptedLetter = state.encryptedQuote[payload.index];
+    indexes[encryptedLetter].forEach((index) => {
+      if (encryptedLetter.match(/[A-Z]/)) {
+        state.userAnswer[index] = payload.letter;
+      } else {
+        state.userAnswer[index] = encryptedLetter;
       }
-    }
+    });
+  },
+  resetUserAnswer(state) {
+    state.userAnswer = [];
   },
 };
 
 export const actions = {
   saveQuoteInfo({ commit }, payload) {
+    commit('resetUserAnswer');
     commit('setSelectedQuote', payload.quote);
     commit('setSelectedMovie', payload.movie);
     commit('setEncryptedQuote', payload.encrypted);
-    // we need to give 'setEncryptedQuote' a chance to finish before we run 'setSimilarLetterIndexes'
+    // we need to give 'setEncryptedQuote' a chance to finish before we run 'setSimilarEncryptedLetterIndexes'
     setTimeout(() => {
-      commit('setSimilarLetterIndexes');
+      commit('setSimilarEncryptedLetterIndexes');
     }, 1500);
+  },
+};
+
+export const getters = {
+  userAnswer(state) {
+    return state.userAnswer;
   },
 };

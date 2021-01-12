@@ -12,6 +12,7 @@
 import { mapMutations, mapState } from 'vuex';
 
 export default {
+  /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
   props: {
     index: {
       type: Number,
@@ -20,17 +21,30 @@ export default {
   },
   data() {
     return {
-      answerLetter: this.userAnswer[this.index] || '',
+      answerLetter: '',
     };
   },
   computed: {
     ...mapState(['userAnswer']),
   },
+  created() {
+    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'setUserAnswer') {
+        this.answerLetter = state.userAnswer[this.index];
+      }
+    });
+  },
+  beforeDestroy() {
+    this.unsubscribe();
+  },
   methods: {
     ...mapMutations(['setUserAnswer']),
     uppercase() {
       this.answerLetter = this.answerLetter.toUpperCase();
-      this.setUserAnswer(this.answerLetter.toUpperCase());
+      this.setUserAnswer({
+        letter: this.answerLetter.toUpperCase(),
+        index: this.index,
+      });
     },
   },
 };

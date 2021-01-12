@@ -12,8 +12,9 @@ module.exports = {
     'plugin:nuxt/recommended',
   ],
   plugins: ['prettier'],
-  // add your custom rules here
   rules: {
+    // 'multiline-ternary': 'error',
+    // 'operator-linebreak': ['error', 'after', { overrides: { '?': 'before', ':': 'before' } }],
     'prettier/prettier': [
       'error',
       {
