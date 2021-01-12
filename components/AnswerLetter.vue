@@ -40,11 +40,14 @@ export default {
   methods: {
     ...mapMutations(['setUserAnswer']),
     uppercase() {
-      this.answerLetter = this.answerLetter.toUpperCase();
-      this.setUserAnswer({
-        letter: this.answerLetter.toUpperCase(),
-        index: this.index,
-      });
+      if (event.keyCode !== 9 || (!event.shiftKey && event.keyCode !== 9)) {
+        // this will allow users to tab between answerLetter components without causing errors
+        this.answerLetter = this.answerLetter.toUpperCase();
+        this.setUserAnswer({
+          letter: this.answerLetter,
+          index: this.index,
+        });
+      }
     },
   },
 };

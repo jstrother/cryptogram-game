@@ -20,20 +20,18 @@ export const mutations = {
     const quote = state.encryptedQuote;
 
     for (const [index, char] of quote.split('').entries()) {
-      state.similarEncryptedLetterIndexes[char]
-        ? state.similarEncryptedLetterIndexes[char].push(index)
-        : (state.similarEncryptedLetterIndexes[char] = [index]);
+      if (char.match(/[A-Z]/)) {
+        state.similarEncryptedLetterIndexes[char]
+          ? state.similarEncryptedLetterIndexes[char].push(index)
+          : (state.similarEncryptedLetterIndexes[char] = [index]);
+      }
     }
   },
   setUserAnswer(state, payload) {
     const indexes = state.similarEncryptedLetterIndexes;
     const encryptedLetter = state.encryptedQuote[payload.index];
     indexes[encryptedLetter].forEach((index) => {
-      if (encryptedLetter.match(/[A-Z]/)) {
-        state.userAnswer[index] = payload.letter;
-      } else {
-        state.userAnswer[index] = encryptedLetter;
-      }
+      state.userAnswer[index] = payload.letter;
     });
   },
   resetUserAnswer(state) {
