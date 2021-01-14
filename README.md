@@ -1,5 +1,15 @@
 # cryptogram-game
 
+## To-Do List
+- modal for when user gets answer correct
+  - displays quote
+  - displays movie
+  - button to restart game
+- method to select difficulty level
+  - easy
+  - medium
+  - hard
+
 ## Build Setup
 
 ```bash
