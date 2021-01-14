@@ -1,19 +1,27 @@
 <template>
   <div class="letter-input">
-    <AnswerLetter v-if="char.match(/[A-Z]/)" :index="index" />
+    <AnswerLetter
+      v-if="letter.match(/[A-Z]/)"
+      :letter-index="letterIndex"
+      :word-index="wordIndex"
+    />
     <SpotHolder v-else />
-    <EncryptedLetter :letter="char" />
+    <EncryptedLetter :letter="letter" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    char: {
+    letter: {
       type: String,
       required: true,
     },
-    index: {
+    letterIndex: {
+      type: Number,
+      required: true,
+    },
+    wordIndex: {
       type: Number,
       required: true,
     },

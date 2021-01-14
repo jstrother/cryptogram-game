@@ -3,7 +3,6 @@
     v-model="answerLetter"
     class="answerLetter"
     maxlength="1"
-    :index="index"
     @keyup="uppercase"
   ></v-text-field>
 </template>
@@ -14,7 +13,11 @@ import { mapMutations, mapState } from 'vuex';
 export default {
   /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
   props: {
-    index: {
+    letterIndex: {
+      type: Number,
+      required: true,
+    },
+    wordIndex: {
       type: Number,
       required: true,
     },
@@ -30,7 +33,7 @@ export default {
   created() {
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'setUserAnswer') {
-        this.answerLetter = state.userAnswer[this.index];
+        this.answerLetter = state.userAnswer[this.wordIndex][this.letterIndex];
       }
     });
   },
@@ -38,15 +41,17 @@ export default {
     this.unsubscribe();
   },
   methods: {
-    ...mapMutations(['setUserAnswer']),
+    ...mapMutations(['setUserAnswer', 'setIsAnswerCorrect']),
     uppercase() {
       if (event.keyCode !== 9 || (!event.shiftKey && event.keyCode !== 9)) {
         // this will allow users to tab between answerLetter components without causing errors
         this.answerLetter = this.answerLetter.toUpperCase();
         this.setUserAnswer({
           letter: this.answerLetter,
-          index: this.index,
+          wordIndex: this.wordIndex,
+          letterIndex: this.letterIndex,
         });
+        this.setIsAnswerCorrect();
       }
     },
   },
