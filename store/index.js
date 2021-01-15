@@ -40,7 +40,9 @@ export const mutations = {
 
     // this is to prep state.userAnswer for the correct number of words
     // otherwise we get errors
-    encryptedWords.forEach(() => state.userAnswer.push([]));
+    if (state.userAnswer.length !== encryptedWords.length) {
+      encryptedWords.forEach(() => state.userAnswer.push([]));
+    }
 
     indexes[letter].forEach(([wordIndex, letterIndex]) => {
       state.userAnswer[wordIndex][letterIndex] = payload.letter;
