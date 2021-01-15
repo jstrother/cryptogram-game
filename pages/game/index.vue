@@ -6,7 +6,9 @@
       :word="word"
       :word-index="index"
     />
-    <CorrectAnswer v-show="isAnswerCorrect" />
+    <v-overlay :value="isAnswerCorrect">
+      <CorrectAnswer />
+    </v-overlay>
   </div>
 </template>
 
