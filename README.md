@@ -5,6 +5,8 @@
   - easy
   - medium
   - hard
+- auto-tabbing between each input in component/AnswerLetter.vue
+  - make sure it goes to next empty input field
 
 ## Build Setup
 
