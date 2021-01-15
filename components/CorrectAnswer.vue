@@ -3,7 +3,6 @@
     <v-card-title>Correct!</v-card-title>
     <v-card-text class="text">{{ selectedQuote }}</v-card-text>
     <v-card-text class="text">{{ selectedMovie }}</v-card-text>
-    <v-spacer></v-spacer>
     <nuxt-link to="/" style="text-decoration: none">
       <v-btn class="ma-sm-auto" @click="gameReset">New Game</v-btn>
     </nuxt-link>
