@@ -33,35 +33,22 @@ export default {
       if (level === 'hard') return;
 
       if (level === 'easy') {
-        return difficulty(2, this.selectedQuote);
+        return difficulty(4, this.selectedQuote);
       }
 
       if (level === 'medium') {
-        return difficulty(3, this.selectedQuote);
+        return difficulty(6, this.selectedQuote);
       }
 
       function difficulty(num, quote) {
-        const wordsFromQuote = quote.split(' ');
-        const quoteLength = quote.split('').length;
-        const levelNumber = Math.floor(quoteLength / num);
-        const letterArray = [];
-        const wordIndexArray = [];
-        const letterIndexArray = [];
-
-        while (letterArray.length < levelNumber) {
-          wordsFromQuote.forEach((word, wordIndex) => {
-            word.split('').forEach((letter, letterIndex) => {
-              if (!letterArray.includes(letter)) {
-                letterArray.push(letter);
-                wordIndexArray.push(wordIndex);
-                letterIndexArray.push(letterIndex);
-              }
-            });
-          });
-          console.log('letterArray:', letterArray);
-          console.log('wordIndexArray:', wordIndexArray);
-          console.log('letterIndexArray:', letterIndexArray);
-        }
+        const upperCaseQuote = quote.toUpperCase();
+        const wordsFromQuote = upperCaseQuote.split(' ');
+        const lettersFromQuote = upperCaseQuote.split('').filter((letter) => letter.match(/[A-Z]/));
+        const levelNumber = Math.floor(lettersFromQuote.length / num);
+        // const letterArray = [];
+        console.log('wordsFromQuote:', wordsFromQuote);
+        console.log('levelNumber:', levelNumber);
+        console.log('lettersFromQuote:', lettersFromQuote);
       }
     },
   },

@@ -17,7 +17,6 @@ export default {
     const quotes = quoteList[0].movieQuotes;
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     const encryptedQuote = encryption(randomQuote.quote);
-    console.log('randomQuote:', randomQuote);
 
     return { randomQuote, encryptedQuote };
   },
