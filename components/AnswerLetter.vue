@@ -31,6 +31,8 @@ export default {
     ...mapState(['userAnswer']),
   },
   created() {
+    this.answerLetter = this.userAnswer[this.wordIndex][this.letterIndex];
+
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'setUserAnswer') {
         this.answerLetter = state.userAnswer[this.wordIndex][this.letterIndex];

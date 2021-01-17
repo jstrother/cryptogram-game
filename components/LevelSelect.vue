@@ -33,22 +33,55 @@ export default {
       if (level === 'hard') return;
 
       if (level === 'easy') {
-        return difficulty(4, this.selectedQuote);
+        difficulty(7, this.selectedQuote).forEach((group) => {
+          console.log('group:', group);
+          this.setUserAnswer({
+            letter: group[0],
+            wordIndex: group[1],
+            letterIndex: group[2],
+          });
+        });
       }
 
       if (level === 'medium') {
-        return difficulty(6, this.selectedQuote);
+        difficulty(10, this.selectedQuote).forEach((group) => {
+          this.setUserAnswer({
+            letter: group[0],
+            wordIndex: group[1],
+            letterIndex: group[2],
+          });
+        });
       }
 
       function difficulty(num, quote) {
+        const mostCommonLetters = ['E', 'A', 'R', 'I', 'O'];
         const upperCaseQuote = quote.toUpperCase();
         const wordsFromQuote = upperCaseQuote.split(' ');
         const lettersFromQuote = upperCaseQuote.split('').filter((letter) => letter.match(/[A-Z]/));
         const levelNumber = Math.floor(lettersFromQuote.length / num);
-        // const letterArray = [];
-        console.log('wordsFromQuote:', wordsFromQuote);
+        const answerArray = [];
+        const letterSet = new Set();
+        console.log('quote:', upperCaseQuote);
         console.log('levelNumber:', levelNumber);
-        console.log('lettersFromQuote:', lettersFromQuote);
+        while (letterSet.size < levelNumber) {
+          const randomLetter =
+            lettersFromQuote[Math.floor(Math.random() * lettersFromQuote.length)];
+
+          wordsFromQuote.forEach((word, wordIndex) => {
+            word.split('').forEach((letter, letterIndex) => {
+              if (
+                !mostCommonLetters.includes(letter) &&
+                !letterSet.has(letter) &&
+                letter === randomLetter
+              ) {
+                letterSet.add(randomLetter);
+                answerArray.push([letter, wordIndex, letterIndex]);
+              }
+            });
+          });
+        }
+        console.log('answerArray:', answerArray);
+        return answerArray;
       }
     },
   },

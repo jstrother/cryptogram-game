@@ -18,6 +18,7 @@ export const mutations = {
   },
   setEncryptedQuote(state, payload) {
     state.encryptedQuote = payload;
+    console.log('encryptedQuote:', state.encryptedQuote);
   },
   setSimilarEncryptedLetterIndexes(state) {
     const encryptedWords = state.encryptedQuote.split(' ');
@@ -47,6 +48,7 @@ export const mutations = {
     indexes[letter].forEach(([wordIndex, letterIndex]) => {
       state.userAnswer[wordIndex][letterIndex] = payload.letter;
     });
+    console.log('userAnswer:', state.userAnswer);
   },
   setIsAnswerCorrect(state) {
     state.isAnswerCorrect =
