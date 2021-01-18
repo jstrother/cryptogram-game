@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/", {data:[{randomQuote:{quote:"I'm your huckleberry.",movie:"Tombstone (1993)"},encryptedQuote:"F'L CQTY BTSAMDNDYYC."}],fetch:[],mutations:[]});
