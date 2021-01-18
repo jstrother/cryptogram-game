@@ -4,7 +4,7 @@ export const state = () => ({
   selectedQuote: '',
   selectedMovie: '',
   encryptedQuote: '',
-  similarEncryptedLetterIndexes: {},
+  encryptedLetterIndexes: {},
   userAnswer: [],
   isAnswerCorrect: false,
 });
@@ -18,23 +18,21 @@ export const mutations = {
   },
   setEncryptedQuote(state, payload) {
     state.encryptedQuote = payload;
-    console.log('encryptedQuote:', state.encryptedQuote);
   },
-  setSimilarEncryptedLetterIndexes(state) {
-    const encryptedWords = state.encryptedQuote.split(' ');
+  setEncryptedLetterIndexes(state, payload) {
+    const encryptedWords = payload.split(' ');
 
     encryptedWords.forEach((word, wordIndex) => {
       const encryptedLetters = word.split('');
       encryptedLetters.forEach((letter, letterIndex) => {
         // this ternary is to make sure we have an array of arrays
-        state.similarEncryptedLetterIndexes[letter]
-          ? state.similarEncryptedLetterIndexes[letter].push([wordIndex, letterIndex])
-          : (state.similarEncryptedLetterIndexes[letter] = [[wordIndex, letterIndex]]);
+        state.encryptedLetterIndexes[letter]
+          ? state.encryptedLetterIndexes[letter].push([wordIndex, letterIndex])
+          : (state.encryptedLetterIndexes[letter] = [[wordIndex, letterIndex]]);
       });
     });
   },
   setUserAnswer(state, payload) {
-    const indexes = state.similarEncryptedLetterIndexes;
     const encryptedWords = state.encryptedQuote.split(' ');
     const encryptedLetters = encryptedWords[payload.wordIndex].split('');
     const letter = encryptedLetters[payload.letterIndex];
@@ -45,10 +43,9 @@ export const mutations = {
       encryptedWords.forEach(() => state.userAnswer.push([]));
     }
 
-    indexes[letter].forEach(([wordIndex, letterIndex]) => {
+    state.encryptedLetterIndexes[letter].forEach(([wordIndex, letterIndex]) => {
       state.userAnswer[wordIndex][letterIndex] = payload.letter;
     });
-    console.log('userAnswer:', state.userAnswer);
   },
   setIsAnswerCorrect(state) {
     state.isAnswerCorrect =
@@ -58,7 +55,7 @@ export const mutations = {
     state.selectedQuote = '';
     state.selectedMovie = '';
     state.encryptedQuote = '';
-    state.similarEncryptedLetterIndexes = {};
+    state.encryptedLetterIndexes = {};
     state.userAnswer = [];
     state.isAnswerCorrect = false;
   },
@@ -70,9 +67,52 @@ export const actions = {
     commit('setSelectedQuote', payload.quote);
     commit('setSelectedMovie', payload.movie);
     commit('setEncryptedQuote', payload.encrypted);
-    // we need to give 'setEncryptedQuote' a chance to finish before we run 'setSimilarEncryptedLetterIndexes'
-    setTimeout(() => {
-      commit('setSimilarEncryptedLetterIndexes');
-    }, 1500);
+    commit('setEncryptedLetterIndexes', payload.encrypted);
+  },
+  selectLevel({ state, commit }, payload) {
+    const mostCommonLetters = ['E', 'A', 'R', 'I', 'O'];
+    const upperCaseQuote = state.selectedQuote.toUpperCase();
+    const wordsFromQuote = upperCaseQuote.split(' ');
+    const lettersFromQuote = upperCaseQuote.split('').filter((letter) => letter.match(/[A-Z]/));
+    const letterSet = new Set();
+    const answerArray = [];
+
+    let levelNumber;
+
+    if (payload === 'easy') {
+      lettersFromQuote.length < 7
+        ? (levelNumber = Math.floor(lettersFromQuote.length / 2))
+        : (levelNumber = Math.floor(lettersFromQuote.length / 4));
+    } else {
+      // if payload === 'medium'
+      lettersFromQuote.length < 7
+        ? (levelNumber = Math.floor(lettersFromQuote.length / 3))
+        : (levelNumber = Math.floor(lettersFromQuote.length / 6));
+    }
+
+    while (levelNumber > letterSet.size) {
+      const randomLetter = lettersFromQuote[Math.floor(Math.random() * lettersFromQuote.length)];
+
+      wordsFromQuote.forEach((word, wordIndex) => {
+        word.split('').forEach((letter, letterIndex) => {
+          if (
+            !mostCommonLetters.includes(letter) &&
+            !letterSet.has(letter) &&
+            letter === randomLetter
+          ) {
+            letterSet.add(randomLetter);
+            answerArray.push([letter, wordIndex, letterIndex]);
+          }
+        });
+      });
+    }
+
+    answerArray.forEach((group) => {
+      commit('setUserAnswer', {
+        letter: group[0],
+        wordIndex: group[1],
+        letterIndex: group[2],
+      });
+    });
   },
 };

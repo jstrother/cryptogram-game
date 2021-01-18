@@ -1,13 +1,5 @@
 # cryptogram-game
 
-## To-Do List
-- method to select difficulty level
-  - easy
-  - medium
-  - hard
-- auto-tabbing between each input in component/AnswerLetter.vue
-  - make sure it goes to next empty input field
-
 ## Build Setup
 
 ```bash

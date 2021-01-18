@@ -3,7 +3,7 @@
     v-model="answerLetter"
     class="answerLetter"
     maxlength="1"
-    @keyup="uppercase"
+    @keyup="setLetter"
   ></v-text-field>
 </template>
 
@@ -31,7 +31,9 @@ export default {
     ...mapState(['userAnswer']),
   },
   created() {
-    this.answerLetter = this.userAnswer[this.wordIndex][this.letterIndex];
+    if (this.userAnswer.length > 0) {
+      this.answerLetter = this.userAnswer[this.wordIndex][this.letterIndex];
+    }
 
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'setUserAnswer') {
@@ -44,16 +46,18 @@ export default {
   },
   methods: {
     ...mapMutations(['setUserAnswer', 'setIsAnswerCorrect']),
-    uppercase() {
-      if (event.keyCode !== 9 || (!event.shiftKey && event.keyCode !== 9)) {
+    setLetter() {
+      if (event.keyCode !== 9 || !event.shiftKey || (!event.shiftKey && event.keyCode !== 9)) {
         // this will allow users to tab between answerLetter components without causing errors
-        this.answerLetter = this.answerLetter.toUpperCase();
-        this.setUserAnswer({
-          letter: this.answerLetter,
-          wordIndex: this.wordIndex,
-          letterIndex: this.letterIndex,
-        });
-        this.setIsAnswerCorrect();
+        if (this.answerLetter && this.answerLetter.match(/^[a-zA-Z]+$/)) {
+          this.answerLetter = this.answerLetter.toUpperCase();
+          this.setUserAnswer({
+            letter: this.answerLetter,
+            wordIndex: this.wordIndex,
+            letterIndex: this.letterIndex,
+          });
+          this.setIsAnswerCorrect();
+        }
       }
     },
   },
