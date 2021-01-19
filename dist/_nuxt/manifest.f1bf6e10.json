@@ -1,0 +1,10 @@
+{
+  "name": "cryptogram-game",
+  "short_name": "cryptogram-game",
+  "description": "## Build Setup",
+  "icons": [],
+  "start_url": "/?standalone=true",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "lang": "en"
+}
