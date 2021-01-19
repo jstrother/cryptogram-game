@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-wrap justify-center mt-16 pt-16">
+  <div class="d-flex flex-wrap justify-center mt-16 pt-4">
     <LetterPairing
       v-for="(letter, index) in word.split('')"
       :key="index"

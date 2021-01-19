@@ -32,6 +32,6 @@ export default {
 <style lang="scss" scoped>
 .letter-input {
   width: 1.5em;
-  margin: $spacing-gap;
+  margin: auto;
 }
 </style>

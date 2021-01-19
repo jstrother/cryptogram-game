@@ -1,4 +1,6 @@
+import * as quotes from '~/data/quotes.json';
 import { cleanString } from '~/functions/cleanString';
+import { encryption } from '~/functions/encryption';
 
 export const state = () => ({
   selectedQuote: '',
@@ -62,12 +64,19 @@ export const mutations = {
 };
 
 export const actions = {
-  saveQuoteInfo({ commit }, payload) {
+  saveQuoteInfo({ commit }) {
     commit('resetState');
-    commit('setSelectedQuote', payload.quote);
-    commit('setSelectedMovie', payload.movie);
-    commit('setEncryptedQuote', payload.encrypted);
-    commit('setEncryptedLetterIndexes', payload.encrypted);
+
+    const quoteList = quotes.default.movieQuotes;
+    const randomQuote = quoteList[Math.floor(Math.random() * quoteList.length)];
+    const selectedQuote = randomQuote.quote;
+    const selectedMovie = randomQuote.movie;
+    const encryptedQuote = encryption(selectedQuote);
+
+    commit('setSelectedQuote', selectedQuote);
+    commit('setSelectedMovie', selectedMovie);
+    commit('setEncryptedQuote', encryptedQuote);
+    commit('setEncryptedLetterIndexes', encryptedQuote);
   },
   selectLevel({ state, commit }, payload) {
     const mostCommonLetters = ['E', 'A', 'R', 'I', 'O'];
@@ -80,14 +89,14 @@ export const actions = {
     let levelNumber;
 
     if (payload === 'easy') {
-      lettersFromQuote.length < 7
-        ? (levelNumber = Math.floor(lettersFromQuote.length / 2))
-        : (levelNumber = Math.floor(lettersFromQuote.length / 4));
+      lettersFromQuote.length < 15
+        ? (levelNumber = Math.floor(lettersFromQuote.length / 4))
+        : (levelNumber = Math.floor(lettersFromQuote.length / 8));
     } else {
       // if payload === 'medium'
-      lettersFromQuote.length < 7
-        ? (levelNumber = Math.floor(lettersFromQuote.length / 3))
-        : (levelNumber = Math.floor(lettersFromQuote.length / 6));
+      lettersFromQuote.length < 15
+        ? (levelNumber = Math.floor(lettersFromQuote.length / 5))
+        : (levelNumber = Math.floor(lettersFromQuote.length / 10));
     }
 
     while (levelNumber > letterSet.size) {
