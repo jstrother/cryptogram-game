@@ -31,7 +31,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['~assets/variables.scss'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -58,7 +58,11 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     '@nuxt/content',
+    '@nuxtjs/style-resources',
   ],
+  styleResources: {
+    scss: [`./assets/*.scss`],
+  },
   /*
    ** Content module configuration
    ** See https://content.nuxtjs.org/configuration
