@@ -1,20 +1,7 @@
 import colors from 'vuetify/es5/util/colors';
 
 export default {
-  /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
-   */
-  mode: 'universal',
-  /*
-   ** Nuxt target
-   ** See https://nuxtjs.org/api/configuration-target
-   */
-  target: 'static',
-  /*
-   ** Headers of the page
-   ** See https://nuxtjs.org/api/configuration-head
-   */
+  target: 'server',
   head: {
     titleTemplate: '%s - Cryptograms',
     meta: [
@@ -28,50 +15,12 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  /*
-   ** Global CSS
-   */
   css: ['~assets/variables.scss'],
-  /*
-   ** Plugins to load before mounting the App
-   ** https://nuxtjs.org/guide/plugins
-   */
-  plugins: [],
-  /*
-   ** Auto import components
-   ** See https://nuxtjs.org/api/configuration-components
-   */
-  components: true,
-  /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: [
-    '@nuxt/typescript-build',
-    // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module',
-    '@nuxtjs/vuetify',
-  ],
-  /*
-   ** Nuxt.js modules
-   */
-  modules: [
-    '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt/content
-    '@nuxt/content',
-    '@nuxtjs/style-resources',
-  ],
+  buildModules: ['@nuxt/typescript-build', '@nuxtjs/stylelint-module', '@nuxtjs/vuetify'],
+  modules: ['@nuxtjs/pwa', '@nuxt/content', '@nuxtjs/style-resources'],
   styleResources: {
     scss: [`./assets/*.scss`],
   },
-  /*
-   ** Content module configuration
-   ** See https://content.nuxtjs.org/configuration
-   */
-  content: {},
-  /*
-   ** vuetify module configuration
-   ** https://github.com/nuxt-community/vuetify-module
-   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -89,9 +38,4 @@ export default {
       },
     },
   },
-  /*
-   ** Build configuration
-   ** See https://nuxtjs.org/api/configuration-build/
-   */
-  build: {},
 };
