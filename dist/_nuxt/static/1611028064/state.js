@@ -1,1 +1,0 @@
-window.__NUXT__=(function(a){return {staticAssetsBase:"\u002F_nuxt\u002Fstatic\u002F1611028064",layout:"default",error:null,state:{selectedQuote:a,selectedMovie:a,encryptedQuote:a,encryptedLetterIndexes:{},userAnswer:[],isAnswerCorrect:false},serverRendered:true,routePath:"\u002F",config:{content:{dbHash:"b25b294c"}}}}(""));
