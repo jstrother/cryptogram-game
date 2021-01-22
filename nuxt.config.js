@@ -13,6 +13,7 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
+  components: true,
   css: ['~assets/variables.scss'],
   buildModules: ['@nuxt/typescript-build', '@nuxtjs/stylelint-module', '@nuxtjs/vuetify'],
   modules: ['@nuxtjs/pwa', '@nuxt/content', '@nuxtjs/style-resources'],
